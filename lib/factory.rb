@@ -14,3 +14,24 @@
 # - to_a
 # - values_at
 # - ==, eql?
+class Factory
+    def self.new(*args)
+      const_set(args.shift, new_class(args))
+    end
+  
+    class << self
+      private
+  
+      def new_class(args)
+        Class.new do
+          attr_accessor(*args)
+  
+          define_method :initialize do |*attribute|
+            args.each.with_index do |arg, i|
+              instance_variable_set("@#{arg}", attribute[i])
+            end
+          end
+        end
+      end
+    end
+  end

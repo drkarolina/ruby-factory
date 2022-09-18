@@ -39,6 +39,13 @@ class Factory
           def valid_argument_number(attribute, args)
             raise ArgumentError if attribute.size > args.size
           end
+
+          def ==(other)
+            instance_variables.each do |var|
+              return false unless instance_variable_get(var) == other.instance_variable_get(var)
+            end
+            true
+          end
         end
       end
     end

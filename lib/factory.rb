@@ -57,6 +57,13 @@ class Factory
             variable = "@#{variable}".to_sym
             instance_variable_set(variable, value)
           end
+
+          def dig(*value)
+            value.inject(self) do |key, val|
+              return nil if key[val].nil?
+              key[val]
+            end
+          end
         end
       end
     end

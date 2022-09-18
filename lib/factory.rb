@@ -46,6 +46,12 @@ class Factory
             end
             true
           end
+
+          def [](variable)
+            return instance_variable_get(instance_variables[variable]) if variable.is_a?(Integer)
+
+            instance_variable_get("@#{variable}")
+          end
         end
       end
     end

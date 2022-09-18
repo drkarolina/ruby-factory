@@ -65,13 +65,22 @@ class Factory
             end
           end
 
+          def to_a
+            instance_variables.map { |variable| instance_variable_get(variable) }
+          end
+
+          def to_h
+            instance_variables.map { |variable| variable.to_s.delete('@') }.zip(self.to_a).to_h
+          end
+
           def each(&block)
             self.to_a.each(&block)
           end
 
-          def to_a
-            instance_variables.map { |var| instance_variable_get(var) }
+          def each_pair(&block)
+            self.to_h.each_pair(&block)
           end
+
         end
       end
     end

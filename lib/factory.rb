@@ -64,6 +64,14 @@ class Factory
               key[val]
             end
           end
+
+          def each(&block)
+            self.to_a.each(&block)
+          end
+
+          def to_a
+            instance_variables.map { |var| instance_variable_get(var) }
+          end
         end
       end
     end

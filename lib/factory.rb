@@ -15,16 +15,19 @@
 # - values_at
 # - ==, eql?
 class Factory
-    def self.new(*args)
-      const_set(args.shift, new_class(args))
+    def self.new(*args, &block)
+      return const_set(args.shift, create_class(args, &block)) if args.first.is_a?(String)
+
+      create_class(args, &block)
     end
   
     class << self
       private
   
-      def new_class(args)
+      def create_class(args, &block)
         Class.new do
-          attr_accessor(*args)
+          attr_accessor(*args, &block)
+          module_eval(&block) if block_given?
   
           define_method :initialize do |*attribute|
             args.each.with_index do |arg, i|

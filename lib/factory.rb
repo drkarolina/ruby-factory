@@ -89,6 +89,10 @@ class Factory
             instance_variables.map { |variable| variable.to_s.delete('@').to_sym } 
           end
 
+          def values_at(*args)
+            args.map { |index| self[index] }
+          end
+
           def size
             self.to_a.size
           end

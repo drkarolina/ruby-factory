@@ -81,6 +81,10 @@ class Factory
             self.to_h.each_pair(&block)
           end
 
+          def select(&block)
+            self.to_a.select(&block)
+          end
+
           def members
             instance_variables.map { |variable| variable.to_s.delete('@').to_sym } 
           end

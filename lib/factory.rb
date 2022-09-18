@@ -81,6 +81,11 @@ class Factory
             self.to_h.each_pair(&block)
           end
 
+          def size
+            self.to_a.size
+          end
+
+          alias_method :length, :size
         end
       end
     end

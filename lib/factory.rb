@@ -52,6 +52,11 @@ class Factory
 
             instance_variable_get("@#{variable}")
           end
+
+          def []=(variable, value)
+            variable = "@#{variable}".to_sym
+            instance_variable_set(variable, value)
+          end
         end
       end
     end

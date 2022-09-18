@@ -30,9 +30,14 @@ class Factory
           module_eval(&block) if block_given?
   
           define_method :initialize do |*attribute|
+            valid_argument_number(attribute, args)
             args.each.with_index do |arg, i|
               instance_variable_set("@#{arg}", attribute[i])
             end
+          end
+
+          def valid_argument_number(attribute, args)
+            raise ArgumentError if attribute.size > args.size
           end
         end
       end

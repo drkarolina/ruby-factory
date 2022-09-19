@@ -36,12 +36,10 @@ class Factory
         instance_variable_set(variable, value)
       end
 
-      def dig(*value)
-        value.inject(self) do |key, val|
-          return nil if key[val].nil?
-
-          key[val]
-        end
+      def dig(key, *values)
+        return unless value = self[key]
+        
+        value.dig(*values)
       end
 
       def to_a

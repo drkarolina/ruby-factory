@@ -30,6 +30,8 @@ class Factory
       end
 
       def []=(variable, value)
+        return instance_variable_set(instance_variables[variable], value) if variable.is_a?(Integer)
+        
         variable = "@#{variable}".to_sym
         instance_variable_set(variable, value)
       end
